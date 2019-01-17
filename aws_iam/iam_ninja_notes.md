@@ -97,7 +97,7 @@ SPC **&&** (IAM policies **&&** Resource-based policies)
 
 * Default pessimistic, default deny
 * Use SCPs for things you absolutely don't want anyone to do.
-*
+* Boundaries help to not feel like having to watch everyone
 * To restrict actions to regions, use `RequestedRegion` condition
   ```
   {
@@ -119,3 +119,9 @@ SPC **&&** (IAM policies **&&** Resource-based policies)
   }
   ```
 * Naming conventions!
+* Use tags! (Like on anything in AWS)
+  - RequestTag: require specific tag value during create actions
+  - ResourceTag: control access to resources based on a tag that's on a resource
+* You can tag the IAM users and roles as well
+* Any condition key can also be used as a variable as a condition value for string operators
+ - `["${aws:PrincipalTag/project}"]`
