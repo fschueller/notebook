@@ -59,7 +59,7 @@
   - **Service Control Policies (SCP)**: guardrails, not an access control in the true sense.
     Default is a `*` policy for every organization, relying on IAM for access control.
 * *AWS Identity and Access Management (IAM)*: actually able to define access to resources,
-  services, etc.
+    services, etc.
   - **Permission Policies and Permission Boundaries**: access can be limited with a certain
     maximum threshold amount of permissions
 * *AWS Security Token Service (AWS STS)*: used when assuming IAM roles
@@ -78,9 +78,9 @@
 SPC **&&** (IAM policies **||** Resource-based policies)
             *if*
             Permissions boundary
-            &&
-            Permissions Policy (Managed || Inline)
-            &&
+            **&&**
+            Permissions Policy (Managed **||** Inline)
+            **&&**
             Scope-down policy
 
 ### Across accounts
@@ -88,9 +88,9 @@ SPC **&&** (IAM policies **||** Resource-based policies)
 SPC **&&** (IAM policies **&&** Resource-based policies)
             *if*
             Permissions boundary
-            &&
-            Permissions Policy (Managed || Inline)
-            &&
+            **&&**
+            Permissions Policy (Managed **||** Inline)
+            **&&**
             Scope-down policy
 
 ## Pro Tips:
@@ -122,6 +122,27 @@ SPC **&&** (IAM policies **&&** Resource-based policies)
 * Use tags! (Like on anything in AWS)
   - RequestTag: require specific tag value during create actions
   - ResourceTag: control access to resources based on a tag that's on a resource
+  ```
+  {
+    "Effect": "Allow",
+    "Action": "ec2:CreateTags",
+    "Resource": "*",
+    "Condition": {
+      // Only tag ec2 resources with your project tag
+      "StringEquals": {
+        "ec2:ResourceTag/project": ["${aws:PrincipalTag/project}"]
+      },
+      // Only tag with either of these keys
+      "ForAllValues:StringEquals": {
+        "aws:TagKeys": ["project", "name"]
+      },
+      // Specify your project tag for <project>
+      "StringEqualsIfExists": {
+        "aws:RequestTag/project": ["${aws:PrincipalTag/project}"]
+      }
+    }
+  }
+  ```
 * You can tag the IAM users and roles as well
 * Any condition key can also be used as a variable as a condition value for string operators
- - `["${aws:PrincipalTag/project}"]`
+  - `["${aws:PrincipalTag/project}"]`
