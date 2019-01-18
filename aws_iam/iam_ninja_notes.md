@@ -64,6 +64,7 @@ tl;dr Use the Visual Editor :smile:
 
 ## Policy Enforcement and Evaluation
 
+```
 1. Decision starts at *Deny*
 2. Evaluate all applicable policies
 3. Is there an explicit *Deny*? -> Yes -> Final decision = *Deny*
@@ -79,6 +80,7 @@ tl;dr Use the Visual Editor :smile:
                   |
     v-------------+
 5. Final decision = *Deny* (default Deny)
+```
 
 => What happens between the request and the defined policies is just matching.
 
@@ -115,23 +117,27 @@ Bonus:
 
 ### Within an account
 
-SPC **&&** (IAM policies **||** Resource-based policies)
+```
+SPC && (IAM policies || Resource-based policies)
             *if*
             Permissions boundary
-            **&&**
-            Permissions Policy (Managed **||** Inline)
-            **&&**
+            &&
+            Permissions Policy (Managed || Inline)
+            &&
             Scope-down policy
+```
 
 ### Across accounts
 
-SPC **&&** (IAM policies **&&** Resource-based policies)
+```
+SPC && (IAM policies && Resource-based policies)
             *if*
             Permissions boundary
-            **&&**
-            Permissions Policy (Managed **||** Inline)
-            **&&**
+            &&
+            Permissions Policy (Managed || Inline)
+            &&
             Scope-down policy
+```
 
 ## Pro Tips:
 
