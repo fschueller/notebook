@@ -1,2 +1,2 @@
 # notebook
-Collection of notes and learning about topics.
+Collection of notes and learning about topics and presentations.
