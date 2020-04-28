@@ -42,7 +42,7 @@ tl;dr Use the Visual Editor :smile:
   "Principal":{"AWS":12367987}
   ```
 * **Action**: Type of access that is allowed or denied access
-  - [List of Actions](link to aws docs)
+  - [List of Actions](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html)
   - Statements must include either `Action` or `NotAction` (usually the first)
   ```
   "Action":"ec2:StartInstances"
